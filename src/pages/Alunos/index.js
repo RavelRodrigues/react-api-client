@@ -21,7 +21,7 @@ export default function Alunos() {
       setIsLoading(false);
     }
     getData();
-  });
+  }, []);
   return (
     <Container>
       <Loading isLoading={isLoading} />

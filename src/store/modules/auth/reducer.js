@@ -4,16 +4,20 @@ const initialState = {
   isLoggedIn: false,
   token: false,
   user: {},
-  isLoadgin: false,
+  isLoading: false,
 };
 
 export default function (state = initialState, action) {
   switch (action.type) {
     case types.LOGIN_SUCCESS: {
       const newState = { ...state };
-      newState.isLoadgin = true;
+      newState.isLoggedIn = true;
       newState.token = action.payload.token;
-      newState.user = action.payload.user;
+      newState.user = {
+        id: action.payload.id,
+        nome: action.payload.nome,
+        email: action.payload.email,
+      };
       newState.isLoading = false;
       return newState;
     }
@@ -24,7 +28,33 @@ export default function (state = initialState, action) {
     }
 
     case types.LOGIN_REQUEST: {
-      const newState = { ...initialState };
+      const newState = { ...state };
+      newState.isLoading = true;
+      return newState;
+    }
+    case types.REGISTER_UPDATED_SUCCESS: {
+      const newState = { ...state };
+      newState.user = {
+        ...state.user,
+        nome: action.payload.nome,
+        email: action.payload.email,
+      };
+      newState.isLoading = false;
+      return newState;
+    }
+    case types.REGISTER_CREATED_SUCCESS: {
+      const newState = { ...state };
+      newState.isLoading = false;
+      newState.user = { ...action.payload };
+      return newState;
+    }
+    case types.REGISTER_FAILURE: {
+      const newState = { ...state };
+      newState.isLoading = false;
+      return newState;
+    }
+    case types.REGISTER_REQUEST: {
+      const newState = { ...state };
       newState.isLoading = true;
       return newState;
     }
