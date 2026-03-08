@@ -16,6 +16,18 @@ export default function Register() {
   const emailStored = useSelector((state) => state.auth.user?.email);
   const isLoading = useSelector((state) => state.auth.isLoading);
 
+  console.log(
+    'Estado completo do auth:',
+    useSelector((state) => state.auth)
+  );
+  console.log(
+    'User:',
+    useSelector((state) => state.auth.user)
+  );
+  console.log('ID:', id);
+  console.log('Nome:', nomeStored);
+  console.log('Email:', emailStored);
+
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');

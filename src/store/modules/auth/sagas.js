@@ -9,7 +9,12 @@ import history from '../../../services/history';
 function* loginRequest({ payload }) {
   try {
     const response = yield call(axios.post, '/tokens', payload);
-    yield put(actions.loginSuccess({ ...response.data }));
+    yield put(
+      actions.loginSuccess({
+        token: response.data.token,
+        ...response.data.user,
+      })
+    );
     toast.success('Logado com sucesso.');
 
     axios.defaults.headers.Authorization = `Bearer ${response.data.token}`;
